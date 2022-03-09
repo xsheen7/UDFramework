@@ -6,6 +6,8 @@
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
 Assets/AssetStoreTools*
+zzzMyTest/
+zzzMyTest.meta
 
 # ide
 .vs/
