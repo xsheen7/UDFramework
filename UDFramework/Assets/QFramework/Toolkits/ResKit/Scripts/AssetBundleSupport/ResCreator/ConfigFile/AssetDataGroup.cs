@@ -31,7 +31,7 @@ using System.Collections.Generic;
 namespace QFramework
 {
     /// <summary>
-    /// 所有的AB资源 包括ab包和ab内的资源清单 运行时使用数据
+    /// AB包资源 包括ab包和ab内的资源清单 运行时使用数据
     /// </summary>
     public class AssetDataGroup
     {
@@ -88,7 +88,7 @@ namespace QFramework
         }
 
         /// <summary>
-        /// 序列化ab资源清单 本地序列化使用数据
+        /// 序列化ab包资源 本地序列化使用数据
         /// </summary>
         [Serializable]
         public class SerializeData
@@ -309,7 +309,7 @@ namespace QFramework
             return true;
         }
 
-        public SerializeData GetSerializeData()
+        public SerializeData CreatSerializeData()
         {
             var sd = new SerializeData();
             sd.key = m_Key;

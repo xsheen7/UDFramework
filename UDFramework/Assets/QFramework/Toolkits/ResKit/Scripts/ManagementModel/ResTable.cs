@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace QFramework
 {
+    //运行时资源缓存清单 当前加载内存中的资源
     public class ResTable : ResKitTable<IRes>
     {
         public ResKitTableIndex<string, IRes> NameIndex = new ResKitTableIndex<string, IRes>(res => res.AssetName.ToLower());

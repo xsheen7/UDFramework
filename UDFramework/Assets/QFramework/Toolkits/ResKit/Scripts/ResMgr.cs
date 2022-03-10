@@ -37,10 +37,21 @@ namespace QFramework
     public class ResMgr : MonoBehaviour,ISingleton
     {
         public static ResMgr Instance => MonoSingletonProperty<ResMgr>.Instance;
-
-        #region ID:RKRM001 Init v0.1.0 Unity5.5.1p4
-
         private static bool mResMgrInited = false;
+        
+        #region 字段
+
+        //资源缓存
+        private ResTable mTable = new ResTable();
+
+        [SerializeField] private int mCurrentCoroutineCount;
+        private int mMaxCoroutineCount = 8; //最快协成大概在6到8之间
+        private LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
+
+        //Res 在ResMgr中 删除的问题，ResMgr定时收集列表中的Res然后删除
+        private bool mIsResMapDirty;
+
+        #endregion
         
         /// <summary>
         /// 初始化bin文件
@@ -77,8 +88,6 @@ namespace QFramework
             yield return Instance.InitResMgrAsync();
         }
 
-        #endregion
-
         public int Count
         {
             get { return mTable.Count(); }
@@ -90,19 +99,6 @@ namespace QFramework
         {
             IsApplicationQuit = true;
         }
-
-        #region 字段
-
-        private ResTable mTable = new ResTable();
-
-        [SerializeField] private int mCurrentCoroutineCount;
-        private int mMaxCoroutineCount = 8; //最快协成大概在6到8之间
-        private LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
-
-        //Res 在ResMgr中 删除的问题，ResMgr定时收集列表中的Res然后删除
-        private bool mIsResMapDirty;
-
-        #endregion
 
         public IEnumerator InitResMgrAsync()
         {
@@ -123,7 +119,7 @@ namespace QFramework
                 if (AssetBundleSettings.LoadAssetResFromStreamingAssetsPath)
                 {
                     var streamingPath = Application.streamingAssetsPath + "/AssetBundles/" +
-                                        AssetBundlePathHelper.GetPlatformName() + "/" + ResDatas.FileName;
+                                        AssetBundlePathHelper.GetPlatformName() + "/" +  ResDatas.FileName;
                     outResult.Add(pathPrefix + streamingPath);
                 }
                 // 进行过热更
@@ -156,13 +152,13 @@ namespace QFramework
 
                 var outResult = new List<string>();
 
-                // 未进行过热更
+                // 未进行过热更 streaming asset
                 if (AssetBundleSettings.LoadAssetResFromStreamingAssetsPath)
                 {
                     ResKit.Get.Container.Get<IZipFileHelper>()
                         .GetFileInInner(ResDatas.FileName, outResult);
                 }
-                // 进行过热更
+                // 进行过热更 persistdata path
                 else
                 {
                     AssetBundlePathHelper.GetFileInFolder(AssetBundlePathHelper.PersistentDataPath, ResDatas.FileName,

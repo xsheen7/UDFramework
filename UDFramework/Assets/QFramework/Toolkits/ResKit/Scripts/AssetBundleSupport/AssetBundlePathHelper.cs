@@ -53,22 +53,6 @@ namespace QFramework
             }
         }
 #endif
-        
-        // 资源路径，优先返回外存资源路径
-        public static string GetResPathInPersistentOrStream(string relativePath)
-        {
-            string resPersistentPath = string.Format("{0}{1}", PersistentDataPath4Res, relativePath);
-            if (File.Exists(resPersistentPath))
-            {
-                return resPersistentPath;
-            }
-            else
-            {
-                return StreamingAssetsPath + relativePath;
-            }
-        }
-
-        
         private static string mPersistentDataPath;
         private static string mStreamingAssetsPath;
         private static string mPersistentDataPath4Res;
@@ -154,6 +138,7 @@ namespace QFramework
                 return mPersistentDataPath4Res;
             }
         }
+        
         public static string GetPlatformName()
         {
 #if UNITY_EDITOR
@@ -161,33 +146,6 @@ namespace QFramework
 #else
 			return GetPlatformForAssetBundles(UnityEngine.Application.platform);
 #endif
-        }
-        
-        public static string GetPlatformForAssetBundles(RuntimePlatform platform)
-        {
-            switch (platform)
-            {
-                case RuntimePlatform.Android:
-                    return "Android";
-                case RuntimePlatform.WSAPlayerARM:
-                case RuntimePlatform.WSAPlayerX64:
-                case RuntimePlatform.WSAPlayerX86:
-                    return "WSAPlayer";
-                case RuntimePlatform.IPhonePlayer:
-                    return "iOS";
-                case RuntimePlatform.WebGLPlayer:
-                    return "WebGL";
-                case RuntimePlatform.WindowsPlayer:
-                    return "Windows";
-                case RuntimePlatform.OSXPlayer:
-                    return "OSX";
-                case RuntimePlatform.LinuxPlayer:
-                    return "Linux";
-                // Add more build targets for your own.
-                // If you add more targets, don't forget to add the same platforms to GetPlatformForAssetBundles(RuntimePlatform) function.
-                default:
-                    return null;
-            }
         }
         
         public static string[] GetAssetPathsFromAssetBundleAndAssetName(string abRAssetName, string assetName)
@@ -218,8 +176,7 @@ namespace QFramework
         }
         
         
-        
-// 上一级目录
+        // 上一级目录
         public static string GetParentDir(string dir, int floor = 1)
         {
             string subDir = dir;

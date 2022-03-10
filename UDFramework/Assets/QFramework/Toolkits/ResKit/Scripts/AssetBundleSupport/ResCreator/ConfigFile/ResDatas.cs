@@ -32,11 +32,19 @@ using UnityEngine;
 namespace QFramework
 {
     /// <summary>
-    /// 默认的 ResData 支持
+    /// 对资源清单序列化的支持 工具类
     /// </summary>
     public sealed class ResDatas : IResDatas
     {
         public string AESKey = string.Empty;
+        
+        private readonly List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
+        private AssetDataTable mAssetDataTable = null;
+        
+        public IList<AssetDataGroup> AllAssetDataGroups
+        {
+            get { return mAllAssetDataGroup; }
+        }
 
         [Serializable]
         public class SerializeData
@@ -54,15 +62,6 @@ namespace QFramework
         /// 如果是以前的命名错误版本，大家可以通过设置 ResDatas.FileName = "asset_bindle_config.bin" 来兼容以前的代码; 
         /// </summary>
         public static string FileName = "asset_bundle_config.bin";
-
-        public IList<AssetDataGroup> AllAssetDataGroups
-        {
-            get { return mAllAssetDataGroup; }
-        }
-
-        private readonly List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
-
-        private AssetDataTable mAssetDataTable = null;
 
         public void Reset()
         {
@@ -236,7 +235,7 @@ namespace QFramework
                 SetSerializeData(sd);
             }
         }
-
+        
         public void Save(string outPath)
         {
             var sd = new SerializeData
@@ -246,7 +245,7 @@ namespace QFramework
 
             for (var i = 0; i < mAllAssetDataGroup.Count; ++i)
             {
-                sd.AssetDataGroup[i] = mAllAssetDataGroup[i].GetSerializeData();
+                sd.AssetDataGroup[i] = mAllAssetDataGroup[i].CreatSerializeData();
             }
 
             if (ResKit.Get.Container.Get<IBinarySerializer>()

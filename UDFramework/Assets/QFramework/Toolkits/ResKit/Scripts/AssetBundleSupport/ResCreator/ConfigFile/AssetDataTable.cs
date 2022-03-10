@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace QFramework
 {
+    //所有的资源清单表 资源索引列表 加载使用
     public class AssetDataTable : ResKitTable<AssetData>
     {
         public ResKitTableIndex<string, AssetData> NameIndex = new ResKitTableIndex<string, AssetData>(data => data.AssetName);

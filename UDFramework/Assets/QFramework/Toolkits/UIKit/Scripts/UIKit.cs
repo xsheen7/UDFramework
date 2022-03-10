@@ -46,6 +46,16 @@ namespace QFramework
         /// </summary>
         public static readonly UIPanelTable Table = new UIPanelTable();
 
+        /// <summary>
+        /// 可设置面板打开方式
+        /// </summary>
+        /// <param name="panelOpenType"></param>
+        /// <param name="canvasLevel"></param>
+        /// <param name="uiData"></param>
+        /// <param name="assetBundleName"></param>
+        /// <param name="prefabName"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static T OpenPanel<T>(PanelOpenType panelOpenType, UILevel canvasLevel = UILevel.Common,
             IUIData uiData = null,
             string assetBundleName = null,
@@ -67,6 +77,15 @@ namespace QFramework
             return retPanel;
         }
 
+        /// <summary>
+        /// 默认打开单个面板
+        /// </summary>
+        /// <param name="canvasLevel"></param>
+        /// <param name="uiData"></param>
+        /// <param name="assetBundleName"></param>
+        /// <param name="prefabName"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static T OpenPanel<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
             string assetBundleName = null,
             string prefabName = null) where T : UIPanel
@@ -75,26 +94,6 @@ namespace QFramework
 
             panelSearchKeys.OpenType = PanelOpenType.Single;
             panelSearchKeys.Level = canvasLevel;
-            panelSearchKeys.PanelType = typeof(T);
-            panelSearchKeys.AssetBundleName = assetBundleName;
-            panelSearchKeys.GameObjName = prefabName;
-            panelSearchKeys.UIData = uiData;
-
-            T retPanel = UIManager.Instance.OpenUI(panelSearchKeys) as T;
-
-            panelSearchKeys.Recycle2Cache();
-
-            return retPanel;
-        }
-
-        public static T OpenPanel<T>(IUIData uiData, PanelOpenType panelOpenType = PanelOpenType.Single,
-            string assetBundleName = null,
-            string prefabName = null) where T : UIPanel
-        {
-            var panelSearchKeys = PanelSearchKeys.Allocate();
-
-            panelSearchKeys.OpenType = panelOpenType;
-            panelSearchKeys.Level = UILevel.Common;
             panelSearchKeys.PanelType = typeof(T);
             panelSearchKeys.AssetBundleName = assetBundleName;
             panelSearchKeys.GameObjName = prefabName;

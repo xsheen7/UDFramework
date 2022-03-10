@@ -10,10 +10,14 @@ using System.Text;
 namespace QFramework
 {
     [Serializable]
-    public class MD5Manager  : ISingleton
+    public class MD5Manager : ISingleton
+
     {
         public static MD5Manager Instance => SingletonProperty<MD5Manager>.Instance;
-        private MD5Manager() {}
+
+        private MD5Manager()
+        {
+        }
 
         //储存Md5码，filePath为文件路径，md5SavePath为储存md5码路径
         public void SaveMd5(string filePath, string md5SavePath)
@@ -24,6 +28,7 @@ namespace QFramework
             {
                 File.Delete(name);
             }
+
             StreamWriter sw = new StreamWriter(name, false, Encoding.UTF8);
             if (sw != null)
             {
@@ -42,6 +47,7 @@ namespace QFramework
             {
                 File.Delete(name);
             }
+
             StreamWriter sw = new StreamWriter(name, false, Encoding.UTF8);
             if (sw != null)
             {
@@ -76,27 +82,26 @@ namespace QFramework
                 using (var fileStream = File.OpenRead(fliePath))
                 {
                     var md5 = MD5.Create();
-                    var fileMD5Bytes = md5.ComputeHash(fileStream);//计算指定Stream 对象的哈希值                                     
+                    var fileMD5Bytes =
+                        md5.ComputeHash(fileStream); //计算指定Stream 对象的哈希值                                     
                     filemd5 = FormatMD5(fileMD5Bytes);
-
                 }
             }
             catch (System.Exception ex)
             {
                 Debug.LogError(ex);
             }
+
             return filemd5;
         }
 
         public string FormatMD5(Byte[] data)
         {
-            return System.BitConverter.ToString(data).Replace("-", "").ToLower();//将byte[]装换成字符串
+            return System.BitConverter.ToString(data).Replace("-", "").ToLower(); //将byte[]装换成字符串
         }
 
         public void OnSingletonInit()
         {
-            
         }
     }
 }
-

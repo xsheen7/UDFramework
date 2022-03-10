@@ -157,7 +157,7 @@ namespace QFramework
     }
 
     /// <summary>
-    /// maybe assetbundle,asset
+    /// maybe assetbundle,asset 单个资源数据类
     /// </summary>
     [Serializable]
     public class AssetData

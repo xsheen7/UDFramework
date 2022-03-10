@@ -32,6 +32,9 @@ using System.Linq;
 
 namespace QFramework
 {
+	/// <summary>
+	/// 生成资源名清单类 一个ab包一个类
+	/// </summary>
 	public static class ResDataCodeGenerator
 	{
 		public static void WriteClass(TextWriter writer, string ns)
