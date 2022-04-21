@@ -176,6 +176,7 @@ namespace QFramework
 
         public IPanel CreateUI(PanelSearchKeys panelSearchKeys)
         {
+            //同步打开 需要处理
             var panel = UIKit.Config.LoadPanel(panelSearchKeys);
 
             UIKit.Root.SetLevelOfPanel(panelSearchKeys.Level, panel);

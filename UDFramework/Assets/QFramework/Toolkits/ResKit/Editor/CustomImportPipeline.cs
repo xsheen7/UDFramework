@@ -49,6 +49,17 @@ namespace QFramework
             }
         }
 
+        public static string GenABTag(string assetPath)
+        {
+            string dirName = Path.GetDirectoryName(assetPath);
+            string assetBundleName =
+                PathHelper.AssetPath2RelativePath(dirName)
+                    .ToLower();
+            //注意路径内不要有resource文件夹
+            assetBundleName = assetBundleName.Replace("resources/", "");
+            return assetBundleName;
+        }
+
         private static void ProcessAssetBundleTag(string assetPath, bool tag)
         {
             AssetImporter ai = AssetImporter.GetAtPath(assetPath);
@@ -66,21 +77,16 @@ namespace QFramework
 
             if (tag)
             {
-                string dirName = Path.GetDirectoryName(assetPath);
-                string assetBundleName =
-                    PathHelper.AssetPath2RelativePath(dirName)
-                        .ToLower();
-                //注意路径内不要有resource文件夹
-                assetBundleName = assetBundleName.Replace("resources/", "");
-
+                string assetBundleName = GenABTag(assetPath);
+                    
                 if (assetPath.Contains("ABSingleFile"))
                 {
-                    ai.assetBundleName = string.Format("{0}/{1}.bundle", assetBundleName,
+                    ai.assetBundleName = string.Format("{0}/{1}.AB", assetBundleName,
                         PathHelper.FileNameWithoutSuffix(Path.GetFileName(assetPath)));
                 }
                 else
                 {
-                    ai.assetBundleName = assetBundleName + ".bundle";
+                    ai.assetBundleName = assetBundleName + ".AB";
                 }
             }
             else

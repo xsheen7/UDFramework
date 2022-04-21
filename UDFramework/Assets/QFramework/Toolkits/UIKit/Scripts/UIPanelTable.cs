@@ -118,6 +118,7 @@ namespace QFramework
         protected abstract void OnDispose();
     }
 
+     //字典的封装 泛型 todo作为工具类
     public class UIKitTableIndex<TKeyType, TDataItem> : IDisposable
     {
         private Dictionary<TKeyType, List<TDataItem>> mIndex = new Dictionary<TKeyType, List<TDataItem>>();

@@ -35,25 +35,25 @@ namespace QFramework
 		public const   string AssetBundlesOutputPath       = "AssetBundles";
 		private const string Mark_AssetBundle   = "Assets/@ResKit - AssetBundle Mark";
 
-		static ResKitAssetsMenu()
-		{
-			Selection.selectionChanged = OnSelectionChanged;
-		}
+		// static ResKitAssetsMenu()
+		// {
+		// 	Selection.selectionChanged = OnSelectionChanged;
+		// }
 
-		public static void OnSelectionChanged()
-		{
-			var path = GetSelectedPathOrFallback();
-			if (!string.IsNullOrEmpty(path))
-			{
-				Menu.SetChecked(Mark_AssetBundle, Marked(path));
-			}
-		}
+		// public static void OnSelectionChanged()
+		// {
+		// 	var path = GetSelectedPathOrFallback();
+		// 	if (!string.IsNullOrEmpty(path))
+		// 	{
+		// 		Menu.SetChecked(Mark_AssetBundle, Marked(path));
+		// 	}
+		// }
 
 		public static bool Marked(string path)
 		{
 			var ai = AssetImporter.GetAtPath(path);
-			var dir = new DirectoryInfo(path);
-			return string.Equals(ai.assetBundleName, dir.Name.Replace(".", "_").ToLower());
+			string bundleName = CustomImportPipeline.GenABTag(path);
+			return string.Equals(ai.assetBundleName, bundleName);
 		}
 
 		public static void MarkAB(string path)
@@ -63,15 +63,16 @@ namespace QFramework
 				var ai = AssetImporter.GetAtPath(path);
 				var dir = new DirectoryInfo(path);
 
-				if (Marked(path))
+				// if (Marked(path))
+				// {
+				// 	//取消标记
+				// 	//Menu.SetChecked(Mark_AssetBundle, false);
+				// 	ai.assetBundleName = null;
+				// }
+				// else
 				{
-					Menu.SetChecked(Mark_AssetBundle, false);
-					ai.assetBundleName = null;
-				}
-				else
-				{
-					Menu.SetChecked(Mark_AssetBundle, true);
-					ai.assetBundleName = dir.Name.Replace(".", "_");
+					//Menu.SetChecked(Mark_AssetBundle, true);
+					ai.assetBundleName = CustomImportPipeline.GenABTag(path);
 				}
 
 				AssetDatabase.RemoveUnusedAssetBundleNames();

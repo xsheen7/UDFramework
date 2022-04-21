@@ -40,9 +40,6 @@ namespace QFramework
         public virtual IPanel LoadPanel(PanelSearchKeys panelSearchKeys)
         {
             var panelLoader = PanelLoaderPool.AllocateLoader();
-            
-
-            panelLoader.LoadPanelPrefab(panelSearchKeys);
 
             var panelPrefab = panelLoader.LoadPanelPrefab(panelSearchKeys);
 
@@ -81,8 +78,6 @@ namespace QFramework
 
         void Unload();
     }
-
-
     
     public interface IPanelLoaderPool
     {

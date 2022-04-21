@@ -279,6 +279,7 @@ namespace QFramework
 
                 try
                 {
+                    //注意ab包的tag不能和资源名相同 会添加ab的tag作为key
                     Debug.LogFormat("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.AssetName,
                         mABDependenceArray[old.AssetBundleIndex].abName, mABDependenceArray[data.AssetBundleIndex].abName);
                 }

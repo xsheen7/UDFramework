@@ -307,7 +307,7 @@ namespace QFramework
         // todo 使用路径的话/用最后一个
         private static string GetKeyFromABName(string name)
         {
-            var pIndex = name.IndexOf('/');
+            var pIndex = name.LastIndexOf('/');
 
             if (pIndex < 0)
             {

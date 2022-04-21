@@ -10,7 +10,8 @@ public class MainGame : Architecture<MainGame>
     protected override void Init()
     {
         ResKit.Init();
-        UIKit.OpenPanel<UIMyPanel>();
+        UIMyPanel panel = UIKit.OpenPanel<UIMyPanel>();
+        
         Material mat = ResLoader.Allocate().LoadSync("Test") as Material;
         Log.I(mat.name);
     }

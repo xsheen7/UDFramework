@@ -160,46 +160,6 @@ namespace QFramework
             return retPanel as T;
         }
 
-        #region 给脚本层用的 api
-
-        public static UIPanel GetPanel(string panelName)
-        {
-            var panelSearchKeys = PanelSearchKeys.Allocate();
-            panelSearchKeys.GameObjName = panelName;
-
-            var retPanel = UIManager.Instance.GetUI(panelSearchKeys);
-
-            panelSearchKeys.Recycle2Cache();
-
-            return retPanel;
-        }
-
-        public static UIPanel OpenPanel(string panelName, UILevel level = UILevel.Common, string assetBundleName = null)
-        {
-            var panelSearchKeys = PanelSearchKeys.Allocate();
-
-            panelSearchKeys.Level = level;
-            panelSearchKeys.AssetBundleName = assetBundleName;
-            panelSearchKeys.GameObjName = panelName;
-
-            var retPanel = UIManager.Instance.OpenUI(panelSearchKeys);
-
-            panelSearchKeys.Recycle2Cache();
-
-            return retPanel as UIPanel;
-        }
-
-        public static void ClosePanel(string panelName)
-        {
-            var panelSearchKeys = PanelSearchKeys.Allocate();
-
-            panelSearchKeys.GameObjName = panelName;
-
-            UIManager.Instance.CloseUI(panelSearchKeys);
-
-            panelSearchKeys.Recycle2Cache();
-        }
-        
         public static void ClosePanel(UIPanel panel)
         {
             var panelSearchKeys = PanelSearchKeys.Allocate();
@@ -210,31 +170,7 @@ namespace QFramework
 
             panelSearchKeys.Recycle2Cache();
         }
-
-        public static void ShowPanel(string panelName)
-        {
-            var panelSearchKeys = PanelSearchKeys.Allocate();
-
-            panelSearchKeys.GameObjName = panelName;
-
-            UIManager.Instance.ShowUI(panelSearchKeys);
-
-            panelSearchKeys.Recycle2Cache();
-        }
-
-        public static void HidePanel(string panelName)
-        {
-            var panelSearchKeys = PanelSearchKeys.Allocate();
-
-            panelSearchKeys.GameObjName = panelName;
-
-            UIManager.Instance.HideUI(panelSearchKeys);
-
-            panelSearchKeys.Recycle2Cache();
-        }
-
-        #endregion
-
+        
         public static void Back(string currentPanelName)
         {
             if (!string.IsNullOrEmpty(currentPanelName))

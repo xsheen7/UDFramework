@@ -31,7 +31,9 @@ namespace QFramework
                 return null;
             }
 
-            return path.Replace("Assets" + Path.DirectorySeparatorChar, "");
+            path = DirectorySeparatorCharReset(path);
+
+            return path.Replace("Assets" + Path.AltDirectorySeparatorChar, "");
         }
         
         /// <summary>
@@ -52,6 +54,12 @@ namespace QFramework
                 return name.Substring(0, endIndex);
             }
             return name;
+        }
+
+        public static string DirectorySeparatorCharReset(string path)
+        {
+            path = path.Replace('\\','/');
+            return path;
         }
     }
 }
