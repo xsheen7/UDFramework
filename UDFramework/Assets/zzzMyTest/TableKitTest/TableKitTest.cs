@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AppTable;
 using QFramework;
 using UnityEngine;
 
@@ -52,15 +53,17 @@ public class TableKitTest : MonoBehaviour
 
     private void Start()
     {
-        var school = new School();
-        school.Add(new Student(){Age = 1,Level = 2,Name = "liangxie"});
-        school.Add(new Student(){Age = 2,Level = 2,Name = "ava"});
-        school.Add(new Student(){Age = 3,Level = 2,Name = "abc"});
-        school.Add(new Student(){Age = 3,Level = 3,Name = "efg"});
-            
-        foreach (var student in school.LevelIndex.Get(2).Where(s=>s.Age < 3))
-        {
-            Debug.Log(student.Age + ":" + student.Level + ":" + student.Name);
-        }
+        // var school = new School();
+        // school.Add(new Student(){Age = 1,Level = 2,Name = "liangxie"});
+        // school.Add(new Student(){Age = 2,Level = 2,Name = "ava"});
+        // school.Add(new Student(){Age = 3,Level = 2,Name = "abc"});
+        // school.Add(new Student(){Age = 3,Level = 3,Name = "efg"});
+        //     
+        // foreach (var student in school.LevelIndex.Get(2).Where(s=>s.Age < 3))
+        // {
+        //     Debug.Log(student.Age + ":" + student.Level + ":" + student.Name);
+        // }
+
+        BillboardSettings.Get("");
     }
 }
