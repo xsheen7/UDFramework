@@ -47,7 +47,6 @@ namespace AppTable
                     {
                      	BaseSettings._instance ,
 						BillboardSettings._instance ,
-						TestSettings._instance
 
                     };
                 }
